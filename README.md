@@ -39,8 +39,8 @@ Current state:
 - U1 STM32WB35CCU6A (QFN-48 7×7 mm), U2 secure element (WLCSP-24, 6×4 balls,
   0.4 mm pitch, 2.56 × 1.81 mm) and U3 ST25R3916 (WLCSP-36, 6×6 balls, 0.5 mm
   pitch). Placement checked against the X-ray. U1 pin 1 is at the package dot
-  (bottom-left) and U2 ball A1 at the dot printed on the board (top-left). The
-  U3 ball A1 orientation is not confirmed yet.
+  (bottom-left), U2 ball A1 at the dot printed on the board (top-left), and U3
+  ball A1 at the dot on both the chip and the board (top-left).
 - The top photo, bottom photo (mirrored, as seen from the top) and X-ray are
   embedded as reference images on layers `User.1` to `User.3`. Higher
   resolution copies (100 px/mm, top-left corner at (100, 98) mm) are in
