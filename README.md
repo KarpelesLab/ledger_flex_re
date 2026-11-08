@@ -55,11 +55,14 @@ Current state:
   contacts, 0.5 mm pitch, flip lock). Exact part numbers are not identified,
   and connector pin numbers are arbitrary (row by row, left to right as seen
   from the top).
-- First hand-traced copper, each trace checked in the X-ray and in the photo
-  of its side: TP1 (RST) and TP3 (3V0) to their through vias on B.Cu, and one
-  F.Cu trace from a via to an STM32 top-row pin.
-- The board also has small blind microvias (visible as dots in the photos)
-  that are not drawn yet.
+- Hand-traced surface copper (`tools/kicad/tracks_manual.py`), each trace read
+  from a high-zoom photo of its side and ending on a via or pad: the RST and
+  3V0 debug pads, one STM32 pin, 8 traces from the J1 top row, short via stubs
+  from the J1 bottom row, 3 from J4 and 2 from J2. Four traces from J1 end on
+  passives that are not placed yet. Traces whose routing could not be read with
+  confidence are left out.
+- Four blind microvias (0.1 mm drill) where a surface trace ends on one.
+- Most blind microvias (visible as dots in the photos) are not drawn yet.
 - Board thickness is 0.8 mm. The 4-layer stackup is a placeholder; the real
   layer count is not known yet.
 - Nets are not assigned and most traces are not drawn yet, so DRC reports

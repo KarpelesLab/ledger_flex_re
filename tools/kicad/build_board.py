@@ -13,6 +13,7 @@ ds.SetBoardThickness(mm(0.8))
 # HDI-scale limits matching the measured geometry (0.2/0.4 mm vias, ~0.1 mm tracks)
 ds.m_TrackMinWidth = mm(0.08); ds.m_ViasMinSize = mm(0.35); ds.m_MinThroughDrill = mm(0.15)
 ds.m_ViasMinAnnularWidth = mm(0.075); ds.m_HoleClearance = mm(0.1); ds.m_HoleToHoleMin = mm(0.15)
+ds.m_MicroViasMinSize = mm(0.2); ds.m_MicroViasMinDrill = mm(0.08); ds.m_MicroViasAllowed = True
 ds.m_CopperEdgeClearance = mm(0.15); ds.m_MinClearance = mm(0.075)
 # name user layers used for references
 b.SetLayerName(pcbnew.User_1, 'Ref.TopPhoto')
@@ -46,7 +47,12 @@ import json
 for x, y, *_ in json.load(open(os.path.join(os.path.dirname(__file__), 'vias_confirmed.json'))):
     v = pcbnew.PCB_VIA(b); v.SetPosition(P(x, y)); v.SetWidth(mm(0.4)); v.SetDrill(mm(0.2))
     v.SetViaType(pcbnew.VIATYPE_THROUGH); v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu); b.Add(v)
-from tracks_manual import TRACKS
+from tracks_manual import TRACKS, MICROVIAS
+for x, y, side in MICROVIAS:
+    v = pcbnew.PCB_VIA(b); v.SetPosition(P(x, y)); v.SetWidth(mm(0.25)); v.SetDrill(mm(0.1))
+    v.SetViaType(pcbnew.VIATYPE_MICROVIA)
+    v.SetLayerPair(pcbnew.B_Cu, pcbnew.In2_Cu) if side == 'B' else v.SetLayerPair(pcbnew.F_Cu, pcbnew.In1_Cu)
+    b.Add(v)
 LAY = {'F.Cu': pcbnew.F_Cu, 'B.Cu': pcbnew.B_Cu}
 for layer, w, pts, note in TRACKS:
     for a, c in zip(pts[:-1], pts[1:]):
