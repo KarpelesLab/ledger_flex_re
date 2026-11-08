@@ -5,8 +5,8 @@ Imaging of the main board of a Ledger Flex hardware wallet (PCB silkscreen
 
 ## Origin
 
-All images in this repository were taken by me, of a device I own. They are
-not sourced from Ledger or any third party.
+All images in this repository were taken by me, of a retail unit I purchased
+from Ledger's official store on Amazon.
 
 ## Contents
 
