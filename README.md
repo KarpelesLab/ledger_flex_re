@@ -55,6 +55,12 @@ Current state:
   contacts, 0.5 mm pitch, flip lock). Exact part numbers are not identified,
   and connector pin numbers are arbitrary (row by row, left to right as seen
   from the top).
+- 214 passives and discretes (`tools/kicad/parts_passive.py`), read from
+  gridded photo tiles of both sides (about ±0.1 mm): 193 two-terminal chips
+  (0201 to 0805, prefixed `P` since R vs C is not known from photos), 8 empty
+  footprints marked DNP, 3 crystals, 5 inductors, 4 diodes and a green LED.
+  Values are unknown. The remaining ICs (9420, VD1, the ST parts near the USB
+  connector, IDC02 and the small packages) are not placed yet.
 - Hand-traced surface copper (`tools/kicad/tracks_manual.py`), each trace read
   from a high-zoom photo of its side and ending on a via or pad: the RST and
   3V0 debug pads, one STM32 pin, 8 traces from the J1 top row, short via stubs

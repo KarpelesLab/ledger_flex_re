@@ -31,6 +31,7 @@ IO = pcbnew.PCB_IO_KICAD_SEXPR()
 LIBS = {'ledger_flex': os.path.join(os.path.dirname(out), 'ledger_flex.pretty'),
         'Package_DFN_QFN': '/usr/share/kicad/footprints/Package_DFN_QFN.pretty'}
 def place(lib, name, ref, value, x, y, rot=0, side='F', hide_text=False):
+    if lib not in LIBS: LIBS[lib] = f'/usr/share/kicad/footprints/{lib}.pretty'
     fp = IO.FootprintLoad(LIBS[lib], name)
     fp.SetFPID(pcbnew.LIB_ID(lib, name))
     fp.SetReference(ref); fp.SetValue(value)
@@ -43,6 +44,16 @@ for name, x, y, drill, pad in HOLES:
     place('ledger_flex', f'MountingHole_{drill}mm_Pad{pad}', name, f'MountingHole_{drill}mm', x, y, hide_text=True)
 from parts import PARTS
 for p in PARTS: place(*p)
+from parts_passive import PASSIVES, FP
+from collections import Counter
+cnt = Counter()
+for kind, size, x, y, rot, side, note in PASSIVES:
+    pre = {'P': 'P', 'DNP': 'P', 'X': 'Y', 'D': 'D', 'L': 'L', 'LED': 'D'}[kind]
+    cnt[pre] += 1; lib, name = FP[(kind, size)].split(':')
+    val = {'X': 'Crystal', 'D': 'Diode', 'L': 'Inductor', 'LED': 'LED'}.get(kind, size)
+    fp = place(lib, name, f'{pre}{cnt[pre]}', val + (' DNP' if kind == 'DNP' else ''), x, y, rot, side, hide_text=True)
+    if note: fp.SetLibDescription(note)
+    if kind == 'DNP': fp.SetDNP(True)
 import json
 for x, y, *_ in json.load(open(os.path.join(os.path.dirname(__file__), 'vias_confirmed.json'))):
     v = pcbnew.PCB_VIA(b); v.SetPosition(P(x, y)); v.SetWidth(mm(0.4)); v.SetDrill(mm(0.2))
