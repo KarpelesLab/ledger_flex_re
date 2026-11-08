@@ -55,12 +55,24 @@ Current state:
   contacts, 0.5 mm pitch, flip lock). Exact part numbers are not identified,
   and connector pin numbers are arbitrary (row by row, left to right as seen
   from the top).
-- 214 passives and discretes (`tools/kicad/parts_passive.py`), read from
-  gridded photo tiles of both sides (about ±0.1 mm): 193 two-terminal chips
-  (0201 to 0805, prefixed `P` since R vs C is not known from photos), 8 empty
-  footprints marked DNP, 3 crystals, 5 inductors, 4 diodes and a green LED.
-  Values are unknown. The remaining ICs (9420, VD1, the ST parts near the USB
-  connector, IDC02 and the small packages) are not placed yet.
+- 226 passives and discretes (`tools/kicad/parts_passive.py`), read from
+  gridded photo tiles of both sides (about ±0.1 mm). Two-terminal chips are
+  prefixed `P` since R vs C is not known from photos; values are unknown. Body
+  sizes were checked against the photos and the X-ray, where component bodies
+  show clearly. Several resistors marked `000` and `01Z` are 0603 bodies on
+  oversized 2.55 mm pad pairs, and are drawn that way. The diodes are a
+  1.8 × 1.05 mm flat package with end terminals, not SOD-323F.
+- The remaining ICs and parts, each with a footprint and 3D body at its
+  measured size: U4 (marking 9420, 5×5 BGA at 0.4 mm pitch, balls located in
+  the X-ray), U6 (ST, marking 022), U8 (marking VD1, 2×2 mm DFN-6 with exposed
+  pad), U12 on the bottom (marking IDC 02), FL1 (8-terminal ceramic RF part
+  next to the STM32), a 2.2 × 1.4 mm metal-lid part (U5), and several small
+  leadless packages (Q1, Q2, U7, U9 to U11). Pin assignments of the unidentified
+  parts are approximate.
+- USB-C receptacle J7, mid-mount in a board cutout. Its 16-pin pad row and the
+  four shell-leg slots are located in the X-ray.
+- A sixth board-to-board connector J6 (2x3) on the bottom side, an unpopulated
+  4-pad footprint, and the round gold test pads on both sides (TP6 to TP26).
 - Hand-traced surface copper (`tools/kicad/tracks_manual.py`), each trace read
   from a high-zoom photo of its side and ending on a via or pad: the RST and
   3V0 debug pads, one STM32 pin, 8 traces from the J1 top row, short via stubs

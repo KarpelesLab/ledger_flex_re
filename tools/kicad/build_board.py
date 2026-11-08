@@ -44,6 +44,9 @@ for name, x, y, drill, pad in HOLES:
     place('ledger_flex', f'MountingHole_{drill}mm_Pad{pad}', name, f'MountingHole_{drill}mm', x, y, hide_text=True)
 from parts import PARTS
 for p in PARTS: place(*p)
+# Library 3D models that are not installed: substitute a model with the same body size.
+MODEL_SUBST = {'QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm.step': 'QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm.step',
+               'Crystal_SMD_2012-2Pin_2.0x1.2mm.step': '${KIPRJMOD}/3d/Crystal_2.0x1.2mm.wrl'}
 from parts_passive import PASSIVES, FP
 from collections import Counter
 cnt = Counter()
@@ -68,6 +71,18 @@ LAY = {'F.Cu': pcbnew.F_Cu, 'B.Cu': pcbnew.B_Cu}
 for layer, w, pts, note in TRACKS:
     for a, c in zip(pts[:-1], pts[1:]):
         t = pcbnew.PCB_TRACK(b); t.SetStart(P(*a)); t.SetEnd(P(*c)); t.SetWidth(mm(w)); t.SetLayer(LAY[layer]); b.Add(t)
+MDIR = '/usr/share/kicad/3dmodels'
+for fp in b.GetFootprints():
+    models = list(fp.Models())  # SWIG yields copies: rebuild the list to change a filename
+    fp.Models().clear()
+    for m in models:
+        fn = m.m_Filename
+        base = os.path.basename(fn)
+        if base in MODEL_SUBST:
+            r = MODEL_SUBST[base]; m.m_Filename = fn = r if r.startswith('$') else fn.replace(base, r)
+        fp.Models().append(m)
+        path = re.sub(r'\$\{KICAD\d+_3DMODEL_DIR\}', MDIR, fn).replace('${KIPRJMOD}', os.path.dirname(os.path.abspath(out)))
+        if not os.path.exists(path): print('WARNING: missing 3D model for', fp.GetReference(), fn)
 pcbnew.SaveBoard(out, b)
 # --- insert reference images
 def img_block(path, layer, cx, cy):

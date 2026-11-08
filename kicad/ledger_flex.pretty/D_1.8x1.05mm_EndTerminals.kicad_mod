@@ -1,0 +1,161 @@
+(footprint "D_1.8x1.05mm_EndTerminals"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Diode, flat package 1.8x1.05 mm with end terminals (marking d), measured")
+	(property "Reference" "REF**"
+		(at 0 -1.125 0)
+		(layer "F.SilkS")
+		(uuid "268c8272-f3aa-4d6a-8d8f-508c632ab650")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(property "Value" "D_1.8x1.05mm_EndTerminals"
+		(at 0 1.125 0)
+		(layer "F.Fab")
+		(uuid "75863d66-fbff-42bd-8055-87e3898b77fb")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6404d0f5-55b2-4718-96f8-c2ee68518f92")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e87fdc53-766e-4255-8348-c9b0fe6e8eb7")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.05 -0.675)
+		(end 1.05 -0.675)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "45c23f1e-72b6-4591-b16a-7ac1254aeef9")
+	)
+	(fp_line
+		(start -1.05 0.675)
+		(end -1.05 -0.675)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "c99b8889-ed04-43e6-b7cd-9e1226e644f9")
+	)
+	(fp_line
+		(start 1.05 -0.675)
+		(end 1.05 0.675)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "65149208-161f-4bf3-a057-fa516b61cc17")
+	)
+	(fp_line
+		(start 1.05 0.675)
+		(end -1.05 0.675)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "763eca23-e9fc-4406-8ba7-1c9ef119d7ca")
+	)
+	(fp_line
+		(start -0.9 -0.525)
+		(end 0.9 -0.525)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "5675d714-af2b-44a0-afb0-47d9f721f1c8")
+	)
+	(fp_line
+		(start -0.9 0.525)
+		(end -0.9 -0.525)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "9405ad88-baf6-42a4-ba1a-9e6b96adb2fd")
+	)
+	(fp_line
+		(start 0.9 -0.525)
+		(end 0.9 0.525)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "cacdafec-e432-41ee-ba69-71471e04f713")
+	)
+	(fp_line
+		(start 0.9 0.525)
+		(end -0.9 0.525)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "34b7607a-89c0-4097-b672-c24960a8c49d")
+	)
+	(pad "1" smd roundrect
+		(at -0.7 0)
+		(size 0.55 0.95)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "0926b7eb-ebe3-4654-9667-f4e74136a31d")
+	)
+	(pad "2" smd roundrect
+		(at 0.7 0)
+		(size 0.55 0.95)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "d636aec9-3dc6-449d-8980-6fa5378d4b40")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3d/D_1.8x1.05mm_EndTerminals.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

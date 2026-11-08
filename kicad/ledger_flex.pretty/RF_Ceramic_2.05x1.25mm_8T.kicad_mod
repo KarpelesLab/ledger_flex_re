@@ -1,0 +1,201 @@
+(footprint "RF_Ceramic_2.05x1.25mm_8T"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Ceramic RF part (filter/balun) 2.05x1.25 mm, 8 terminals, measured")
+	(property "Reference" "REF**"
+		(at 0 -1.225 0)
+		(layer "F.SilkS")
+		(uuid "ff06573e-782c-4770-a7ec-1f8b078b5331")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(property "Value" "RF_Ceramic_2.05x1.25mm_8T"
+		(at 0 1.225 0)
+		(layer "F.Fab")
+		(uuid "26c55235-27a0-41f9-ac13-debf64e399cf")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7e10e372-4ec7-4485-80c8-03cd1bd05322")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6ef373dd-633b-44e8-8da3-0cdec792fdad")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.174999 -0.775)
+		(end 1.174999 -0.775)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "07d68324-6662-43c7-9a0e-790fd7ffdd50")
+	)
+	(fp_line
+		(start -1.174999 0.775)
+		(end -1.174999 -0.775)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "29a613a6-0c2a-40b2-bf47-e0582b59bed5")
+	)
+	(fp_line
+		(start 1.174999 -0.775)
+		(end 1.174999 0.775)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "d0f097a0-5583-4878-a2ca-85d573e0d7ea")
+	)
+	(fp_line
+		(start 1.174999 0.775)
+		(end -1.174999 0.775)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "f5752a17-a703-427f-99a4-2e276cd36849")
+	)
+	(fp_line
+		(start -1.024999 -0.625)
+		(end 1.024999 -0.625)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "c760f438-ed6c-4ce8-89e1-c1d974385647")
+	)
+	(fp_line
+		(start -1.024999 0.625)
+		(end -1.024999 -0.625)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "0551c647-f1e8-4784-9db4-d57cf5a1c289")
+	)
+	(fp_line
+		(start 1.024999 -0.625)
+		(end 1.024999 0.625)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "3bb96248-fc1e-497a-b107-5870a953948d")
+	)
+	(fp_line
+		(start 1.024999 0.625)
+		(end -1.024999 0.625)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "c4e8620a-127f-4540-98d6-c40c26e867aa")
+	)
+	(pad "1" smd rect
+		(at -0.55 -0.95)
+		(size 0.32 0.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "ca827782-7987-4520-b6d5-521eec0be52e")
+	)
+	(pad "2" smd rect
+		(at 0 -0.95)
+		(size 0.32 0.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "d228f45c-3f88-41ab-acce-249cecba294a")
+	)
+	(pad "3" smd rect
+		(at 0.55 -0.95)
+		(size 0.32 0.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "222a181b-bea5-4d7c-bbd3-07ad275b37a5")
+	)
+	(pad "4" smd rect
+		(at 1.3 0)
+		(size 0.65 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "ac20f0f0-7dfe-4890-8310-1eb680451cb7")
+	)
+	(pad "5" smd rect
+		(at 0.55 0.95)
+		(size 0.32 0.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "4a54b3ae-6455-4ddc-90fc-1eba442d29e5")
+	)
+	(pad "6" smd rect
+		(at 0 0.95)
+		(size 0.32 0.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "8322ed1f-976d-4304-845a-2822166a1c6e")
+	)
+	(pad "7" smd rect
+		(at -0.55 0.95)
+		(size 0.32 0.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "caa67f43-c908-4203-a7ed-1cd9ed00b25d")
+	)
+	(pad "8" smd rect
+		(at -1.3 0)
+		(size 0.65 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "301f9217-f4bb-4df5-af31-de4e1486df81")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3d/RF_Ceramic_2.05x1.25mm_8T.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
