@@ -6,7 +6,7 @@
 	(property "Reference" "REF**"
 		(at 0 -2.6 0)
 		(layer "F.SilkS")
-		(uuid "006d9e29-49ac-410f-8031-a90fca388b33")
+		(uuid "f571c281-b568-45c2-9403-ed4e1c2943e2")
 		(effects
 			(font
 				(size 0.4 0.4)
@@ -17,7 +17,7 @@
 	(property "Value" "MountingHole_3.0mm_Pad4.0"
 		(at 0 2.6 0)
 		(layer "F.Fab")
-		(uuid "46e7bec0-ae85-436a-861f-55929d156279")
+		(uuid "be764f5f-638a-4f61-8aab-4ba02d17642b")
 		(effects
 			(font
 				(size 0.4 0.4)
@@ -29,7 +29,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "b5964879-7aee-4ca4-8b11-e152064ae37c")
+		(uuid "35e713cc-5b89-43c7-9f93-d7a2593c2a79")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -40,7 +40,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "1ea6aa3c-f5d0-4a56-9859-8136d5a2bd50")
+		(uuid "165d2926-eff3-4b07-b144-eac4b6e0239a")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -58,7 +58,7 @@
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "5c5605f2-ab53-454c-8195-7a9e91c73450")
+		(uuid "0e0dd72e-c21f-4b58-a267-337ebfba5a20")
 	)
 	(pad "1" thru_hole circle
 		(at 0 0)
@@ -66,7 +66,7 @@
 		(drill 3)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
-		(uuid "af001044-2188-4409-9b3a-c1f0979ddc88")
+		(uuid "3f9e1474-d88f-4c16-8d8d-40678584f5b2")
 	)
 	(embedded_fonts no)
 )

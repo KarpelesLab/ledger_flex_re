@@ -1,0 +1,180 @@
+(footprint "FPC_1x04_P0.5mm_measured"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "FPC connector, 4 contacts, 0.5 mm pitch, flip lock, measured from photos")
+	(property "Reference" "REF**"
+		(at 0 -2.2 0)
+		(layer "F.SilkS")
+		(uuid "e4fb8388-e2b8-4acb-8882-1f0e9d9824f6")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(property "Value" "FPC_1x04_P0.5mm_measured"
+		(at 0 2.2 0)
+		(layer "F.Fab")
+		(uuid "7b37150e-9fb3-43b2-8896-7af5c30e885d")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "18dbd5b0-18e5-4a43-ba67-07c07ac49daa")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0d08419f-dbe3-41a0-afbe-1adf1ebdc9c6")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -2.15 -1.75)
+		(end 2.15 -1.75)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "f95d3d19-d768-4112-926d-6f0575434457")
+	)
+	(fp_line
+		(start -2.15 1.75)
+		(end -2.15 -1.75)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "7ad1d883-5aa4-4f0c-b9d1-b6849c49a915")
+	)
+	(fp_line
+		(start 2.15 -1.75)
+		(end 2.15 1.75)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "61872907-06e1-49d9-baa1-564294bff0e0")
+	)
+	(fp_line
+		(start 2.15 1.75)
+		(end -2.15 1.75)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "589a982d-c4e9-4ce9-85a8-7b76d02bd80e")
+	)
+	(fp_line
+		(start -2 -1.6)
+		(end 2 -1.6)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "15c238a4-aa52-4528-b151-94e8db1fcf78")
+	)
+	(fp_line
+		(start -2 1.6)
+		(end -2 -1.6)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "f8d00320-e2c8-40f8-a228-ffb04a086d27")
+	)
+	(fp_line
+		(start 2 -1.6)
+		(end 2 1.6)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "b134d5d0-02ba-4ee7-8c71-8c2b15b60b72")
+	)
+	(fp_line
+		(start 2 1.6)
+		(end -2 1.6)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "c1cae909-efe6-41b0-90f4-375147861716")
+	)
+	(pad "1" smd roundrect
+		(at -0.75 0)
+		(size 0.3 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "02bc75a1-c107-4438-83cd-1e5db352ae0e")
+	)
+	(pad "2" smd roundrect
+		(at -0.25 0)
+		(size 0.3 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "3031d60b-e1d0-4477-a41d-71df94d19cac")
+	)
+	(pad "3" smd roundrect
+		(at 0.25 0)
+		(size 0.3 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "d23f34ee-a8b1-4792-814b-b5ea6dd20f3c")
+	)
+	(pad "4" smd roundrect
+		(at 0.75 0)
+		(size 0.3 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "57f279a6-793c-4497-aea0-147d5bb311d0")
+	)
+	(pad "MP" smd rect
+		(at -1.75 -2.6)
+		(size 0.3 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "45794b1e-b002-4dfe-b901-8d3126139b74")
+	)
+	(pad "MP" smd rect
+		(at 1.75 -2.6)
+		(size 0.3 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "d088207a-2188-4522-a2f9-cd4cc254aee8")
+	)
+	(embedded_fonts no)
+)

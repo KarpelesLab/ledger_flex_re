@@ -9,4 +9,10 @@ PARTS = [
  ('ledger_flex', 'TestPad_D1.0mm', 'TP3', '3V0', 121.01, 105.29, 0, 'B'),
  ('ledger_flex', 'TestPad_D1.0mm', 'TP4', 'IO', 118.08, 106.97, 0, 'B'),
  ('ledger_flex', 'TestPad_D1.0mm', 'TP5', 'CLK', 120.04, 106.97, 0, 'B'),
+ # connectors on the bottom side (positions = centre of the contact pattern)
+ ('ledger_flex', 'BtB_2x12_P0.35mm_measured', 'J1', 'BtB 2x12 0.35mm (Hirose BM28-style)', 134.06, 126.47, 0, 'B'),
+ ('ledger_flex', 'BtB_2x3_P0.4mm_A_measured', 'J2', 'BtB 2x3 0.4mm', 106.85, 127.19, 0, 'B'),
+ ('ledger_flex', 'BtB_2x3_P0.4mm_B_measured', 'J3', 'BtB 2x3 0.4mm', 146.45, 127.67, 0, 'B'),
+ ('ledger_flex', 'FPC_1x06_P0.5mm_measured', 'J4', 'FPC 6-pin 0.5mm', 119.025, 123.55, 0, 'B'),
+ ('ledger_flex', 'FPC_1x04_P0.5mm_measured', 'J5', 'FPC 4-pin 0.5mm', 141.40, 126.55, 0, 'B'),
 ]

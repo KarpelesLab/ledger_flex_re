@@ -48,3 +48,35 @@ text_setup(fp, name, 1.0); fp.SetAttributes(pcbnew.FP_SMD | pcbnew.FP_EXCLUDE_FR
 p = pcbnew.PAD(fp); p.SetAttribute(pcbnew.PAD_ATTRIB_SMD); p.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
 p.SetSize(V(1.0, 1.0)); p.SetLayerSet(p.SMDMask()); p.SetNumber('1'); fp.Add(p)
 IO.FootprintSave(lib, fp)
+
+# ---- connectors measured on the bottom side. Pads are given in board-frame coordinates
+# relative to the footprint origin as seen from the TOP (x right, y down); y is negated
+# here because flipping to B.Cu mirrors the footprint in y. Pin numbering is arbitrary
+# (row by row, left to right as seen from the top), not the manufacturer's.
+def conn(name, desc, sig, mech, body):
+    fp = pcbnew.FOOTPRINT(None); text_setup(fp, name, body[1]); fp.SetLibDescription(desc)
+    fp.SetAttributes(pcbnew.FP_SMD)
+    for num, (x, y, w, h) in enumerate(sig, 1):
+        p = pcbnew.PAD(fp); p.SetAttribute(pcbnew.PAD_ATTRIB_SMD); p.SetShape(pcbnew.PAD_SHAPE_ROUNDRECT)
+        p.SetRoundRectRadiusRatio(0.25); p.SetSize(V(w, h)); p.SetLayerSet(p.SMDMask())
+        p.SetNumber(str(num)); p.SetPosition(V(x, -y)); fp.Add(p)
+    for (x, y, w, h) in mech:
+        p = pcbnew.PAD(fp); p.SetAttribute(pcbnew.PAD_ATTRIB_SMD); p.SetShape(pcbnew.PAD_SHAPE_RECT)
+        p.SetSize(V(w, h)); p.SetLayerSet(p.SMDMask()); p.SetNumber('MP'); p.SetPosition(V(x, -y)); fp.Add(p)
+    rect(fp, pcbnew.F_Fab, body[0], body[1], 0.05)
+    rect(fp, pcbnew.F_CrtYd, body[0] + 0.3, body[1] + 0.3, 0.05)
+    IO.FootprintSave(lib, fp)
+def rowpads(n, pitch, y, w, h):
+    return [((k - (n - 1) / 2) * pitch, y, w, h) for k in range(n)]
+conn('BtB_2x12_P0.35mm_measured', 'Board-to-board 2x12, 0.35 mm pitch (Hirose BM28-style), measured from photos',
+     rowpads(12, 0.351, -0.95, 0.20, 0.55) + rowpads(12, 0.351, 0.95, 0.20, 0.55),
+     [(-3.27, 0, 0.30, 0.70), (3.27, 0, 0.30, 0.70)] + [(sx * 2.61, sy * 1.02, 0.40, 0.30) for sx in (-1, 1) for sy in (-1, 1)], (6.6, 2.3))
+conn('BtB_2x3_P0.4mm_A_measured', 'Board-to-board 2x3, 0.4 mm pitch, rows 1.88 mm apart, measured from photos',
+     rowpads(3, 0.40, -1.39, 0.22, 0.40) + rowpads(3, 0.40, 1.39, 0.22, 0.40), [(sx * 1.10, sy * 1.39, 0.40, 0.35) for sx in (-1, 1) for sy in (-1, 1)], (3.6, 3.0))
+conn('BtB_2x3_P0.4mm_B_measured', 'Board-to-board 2x3, 0.4 mm pitch, tails 2.71 mm apart, measured from photos',
+     [(-1.355, (k - 1) * 0.40, 0.45, 0.22) for k in range(3)] + [(1.355, (k - 1) * 0.40, 0.45, 0.22) for k in range(3)],
+     [(-1.18, -1.20, 0.35, 0.65), (1.16, -1.24, 0.35, 0.65), (-1.17, 1.20, 0.35, 0.65), (1.18, 1.16, 0.35, 0.65)], (3.0, 3.2))
+conn('FPC_1x06_P0.5mm_measured', 'FPC connector, 6 contacts, 0.5 mm pitch, flip lock, measured from photos',
+     rowpads(6, 0.50, 0, 0.30, 0.70), [(-2.30, 2.65, 0.40, 0.90), (2.30, 2.65, 0.40, 0.90)], (5.0, 3.4))
+conn('FPC_1x04_P0.5mm_measured', 'FPC connector, 4 contacts, 0.5 mm pitch, flip lock, measured from photos',
+     rowpads(4, 0.50, 0, 0.30, 0.70), [(-1.75, 2.60, 0.30, 0.90), (1.75, 2.60, 0.30, 0.90)], (4.0, 3.2))
