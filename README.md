@@ -54,7 +54,11 @@ Current state:
   board-to-board 2x3 at 0.4 mm pitch, J4 and J5 FPC connectors (6 and 4
   contacts, 0.5 mm pitch, flip lock). Exact part numbers are not identified,
   and connector pin numbers are arbitrary (row by row, left to right as seen
-  from the top).
+  from the top). The board-to-board receptacles (J1, J2, J3, J6) have 3D models
+  built from the close-ups: housing with perimeter wall and central island,
+  gold contacts in the groove, and the metal hold-down fittings. J2 and J3 are
+  the same 2.55 × 3.95 mm part, rotated 90° from each other. Heights (0.6 to
+  0.7 mm) are typical values, not measured.
 - 226 passives and discretes (`tools/kicad/parts_passive.py`), read from
   gridded photo tiles of both sides (about ±0.1 mm). Two-terminal chips are
   prefixed `P` since R vs C is not known from photos; values are unknown. Body

@@ -70,12 +70,12 @@ def rowpads(n, pitch, y, w, h):
     return [((k - (n - 1) / 2) * pitch, y, w, h) for k in range(n)]
 conn('BtB_2x12_P0.35mm_measured', 'Board-to-board 2x12, 0.35 mm pitch (Hirose BM28-style), measured from photos',
      rowpads(12, 0.351, -0.95, 0.20, 0.55) + rowpads(12, 0.351, 0.95, 0.20, 0.55),
-     [(-3.27, 0, 0.30, 0.70), (3.27, 0, 0.30, 0.70)] + [(sx * 2.61, sy * 1.02, 0.40, 0.30) for sx in (-1, 1) for sy in (-1, 1)], (6.6, 2.3))
+     [(-3.27, 0, 0.30, 0.70), (3.27, 0, 0.30, 0.70)] + [(sx * 2.61, sy * 1.02, 0.40, 0.30) for sx in (-1, 1) for sy in (-1, 1)], (6.76, 1.96))
 conn('BtB_2x3_P0.4mm_A_measured', 'Board-to-board 2x3, 0.4 mm pitch, rows 1.88 mm apart, measured from photos',
-     rowpads(3, 0.40, -1.39, 0.22, 0.40) + rowpads(3, 0.40, 1.39, 0.22, 0.40), [(sx * 1.10, sy * 1.39, 0.40, 0.35) for sx in (-1, 1) for sy in (-1, 1)], (3.6, 3.0))
+     rowpads(3, 0.40, -1.39, 0.22, 0.40) + rowpads(3, 0.40, 1.39, 0.22, 0.40), [(sx * 1.10, sy * 1.39, 0.40, 0.35) for sx in (-1, 1) for sy in (-1, 1)], (4.0, 2.6))
 conn('BtB_2x3_P0.4mm_B_measured', 'Board-to-board 2x3, 0.4 mm pitch, tails 2.71 mm apart, measured from photos',
      [(-1.355, (k - 1) * 0.40, 0.45, 0.22) for k in range(3)] + [(1.355, (k - 1) * 0.40, 0.45, 0.22) for k in range(3)],
-     [(-1.18, -1.20, 0.35, 0.65), (1.16, -1.24, 0.35, 0.65), (-1.17, 1.20, 0.35, 0.65), (1.18, 1.16, 0.35, 0.65)], (3.0, 3.2))
+     [(-1.18, -1.20, 0.35, 0.65), (1.16, -1.24, 0.35, 0.65), (-1.17, 1.20, 0.35, 0.65), (1.18, 1.16, 0.35, 0.65)], (2.55, 3.95))
 conn('FPC_1x06_P0.5mm_measured', 'FPC connector, 6 contacts, 0.5 mm pitch, flip lock, measured from photos',
      rowpads(6, 0.50, 0, 0.30, 0.70), [(-2.30, 2.65, 0.40, 0.90), (2.30, 2.65, 0.40, 0.90)], (5.0, 3.4))
 conn('FPC_1x04_P0.5mm_measured', 'FPC connector, 4 contacts, 0.5 mm pitch, flip lock, measured from photos',
@@ -139,13 +139,86 @@ def chip2(name, desc, L, W, H, padL, padW, pitch, colour, cap=SILVER, capL=None)
            (L, W), H, colour, chip_boxes(L, W, H, colour, cap, capL))
 
 # Existing measured footprints get bodies too (re-saved with a model).
-def remodel(name, boxes):
-    fp = IO.FootprintLoad(lib, name); fp.Models().clear(); add_model(fp, name, boxes); IO.FootprintSave(lib, fp)
+def mirror_boxes(boxes): return [(x0, -y1, x1, -y0, z0, z1, c) for x0, y0, x1, y1, z0, z1, c in boxes]
+def remodel(name, boxes, mirror=False):
+    fp = IO.FootprintLoad(lib, name); fp.Models().clear()
+    add_model(fp, name, mirror_boxes(boxes) if mirror else boxes); IO.FootprintSave(lib, fp)
 remodel('WLCSP-24_2.56x1.81mm_Layout6x4_P0.4mm', [(-1.28, -0.905, 1.28, 0.905, 0.15, 0.5, DGREY)])
 remodel('WLCSP-36_3.2x3.2mm_Layout6x6_P0.5mm', [(-1.6, -1.6, 1.6, 1.6, 0.15, 0.55, BLACK)])
-remodel('BtB_2x12_P0.35mm_measured', [(-3.3, -1.15, 3.3, 1.15, 0, 0.6, DGREY)])
-remodel('BtB_2x3_P0.4mm_A_measured', [(-1.8, -1.5, 1.8, 1.5, 0, 0.6, DGREY)])
-remodel('BtB_2x3_P0.4mm_B_measured', [(-1.5, -1.6, 1.5, 1.6, 0, 0.6, DGREY)])
+# ---- Hirose-style board-to-board receptacles (bottom side), modelled from the close-ups:
+# dark grey housing with a perimeter wall, a central island, gold contacts lining the
+# groove between them, and silver hold-down fittings. Heights are not measurable from
+# photos and are typical values for this connector class. Boxes are written in top-view
+# coordinates (as the bottom photo is shown, mirrored) and y-negated by mirror_boxes().
+HOUS = (.22, .22, .24)
+def rot90(boxes): return [(y0, x0, y1, x1, z0, z1, c) for x0, y0, x1, y1, z0, z1, c in boxes]
+def ring(ox, oy, ix, iy, z0, z1, c):
+    """rectangular wall: outer half-size (ox, oy), inner half-size (ix, iy)"""
+    return [(-ox, -oy, ox, -iy, z0, z1, c), (-ox, iy, ox, oy, z0, z1, c),
+            (-ox, -iy, -ix, iy, z0, z1, c), (ix, -iy, ox, iy, z0, z1, c)]
+def contacts_x(xs, w, y_in, y_out, y_tail, H):
+    """contacts along x at positions xs, mirrored on both rows (+/- y). y_in: island face,
+    y_out: inner wall face, y_tail: end of the solder tail outside the housing."""
+    b = []
+    for sy in (-1, 1):
+        def Y(a, c): return (min(sy * a, sy * c), max(sy * a, sy * c))
+        for x in xs:
+            for ya, yb, z0, z1, col in ((y_in, y_out, 0.15, 0.25, GOLD),              # groove floor
+                                        (y_in, y_in + 0.07, 0.15, H - 0.12, GOLD),    # spring arm on island
+                                        (y_out - 0.07, y_out, 0.15, H - 0.18, GOLD),  # arm on outer wall
+                                        (y_out, y_tail, 0.0, 0.08, SILVER)):           # solder tail
+                y0, y1 = Y(ya, yb); b.append((x - w / 2, y0, x + w / 2, y1, z0, z1, col))
+    return b
+def btb_2x12():
+    H = 0.6; xs = [(k - 5.5) * 0.351 for k in range(12)]
+    b = [(-3.38, -0.98, 3.38, 0.98, 0.0, 0.15, HOUS)]                     # floor
+    b += ring(3.38, 0.98, 3.0, 0.78, 0.0, H, HOUS)                         # outer wall
+    b += [(-3.38 - 0.0, -0.73, -3.31, 0.73, 0, H, HOUS), (3.31, -0.73, 3.38, 0.73, 0, H, HOUS)]
+    b += [(-3.0, -0.78, -2.25, 0.78, 0, H - 0.05, HOUS), (2.25, -0.78, 3.0, 0.78, 0, H - 0.05, HOUS)]  # end blocks
+    b += [(-2.25, -0.31, 2.25, 0.31, 0, H - 0.05, HOUS)]                   # island
+    b += contacts_x(xs, 0.2, 0.31, 0.78, 1.08, H)
+    for sx in (-1, 1):
+        X = lambda a, c: (min(sx * a, sx * c), max(sx * a, sx * c))
+        x0, x1 = X(3.03, 3.51); b.append((x0, -0.34, x1, 0.34, 0, 0.1, SILVER))          # end tab foot
+        x0, x1 = X(3.38, 3.45); b.append((x0, -0.34, x1, 0.34, 0, H - 0.1, SILVER))      # end tab plate
+        for sy in (-1, 1):
+            Y = lambda a, c: (min(sy * a, sy * c), max(sy * a, sy * c))
+            x0, x1 = X(2.31, 2.88)
+            for ya, yb, z0, z1 in ((0.93, 1.17, 0, 0.1), (0.98, 1.04, 0, H), (0.70, 1.04, H, H + 0.03), (0.70, 0.76, 0.15, H)):
+                y0, y1 = Y(ya, yb); b.append((x0, y0, x1, y1, z0, z1, SILVER))
+    return b
+def btb_2x3(L2, W2, isl, groove, pocket, tail, pitch, fit, H, frame=True):
+    """long axis y. L2/W2: housing half-sizes (x, y); isl: island half-size; groove: x
+    half-width of the contact groove (within the island's y span); pocket: (x, y) half-size
+    of the end pockets; tail: x end of the solder tails; fit: hold-down centre (x, y)."""
+    ix, iy = isl; px, py = pocket
+    b = [(-L2, -W2, L2, W2, 0, 0.15, HOUS)]
+    # walls around a cross-shaped cavity: groove (|x|<groove, |y|<iy) + pockets (|x|<px, |y|<py)
+    b += [(-L2, -W2, L2, -py, 0, H, HOUS), (-L2, py, L2, W2, 0, H, HOUS)]                 # end walls
+    b += [(-L2, -py, -px, -iy, 0, H, HOUS), (px, -py, L2, -iy, 0, H, HOUS),
+          (-L2, iy, -px, py, 0, H, HOUS), (px, iy, L2, py, 0, H, HOUS)]                   # beside pockets
+    b += [(-L2, -iy, -groove, iy, 0, H, HOUS), (groove, -iy, L2, iy, 0, H, HOUS)]         # side walls
+    b += [(-ix, -iy, ix, iy, 0, H - 0.05, HOUS)]                                          # island
+    b += rot90(contacts_x([(k - 1) * pitch for k in range(3)], 0.2, ix, groove, tail, H))
+    if frame:  # metal lining along the top of the inner walls
+        t = 0.05
+        b += [(-px - t, -py - t, px + t, -py, H, H + 0.03, SILVER), (-px - t, py, px + t, py + t, H, H + 0.03, SILVER)]
+        for sx in (-1, 1):
+            X = lambda a, c: (min(sx * a, sx * c), max(sx * a, sx * c))
+            x0, x1 = X(px, px + t); b += [(x0, -py, x1, -iy, H, H + 0.03, SILVER), (x0, iy, x1, py, H, H + 0.03, SILVER)]
+    fx, fy = fit
+    for sx in (-1, 1):
+        X = lambda a, c: (min(sx * a, sx * c), max(sx * a, sx * c))
+        for sy in (-1, 1):
+            Y = lambda a, c: (min(sy * a, sy * c), max(sy * a, sy * c))
+            y0, y1 = Y(fy - 0.22, fy + 0.22)
+            x0, x1 = X(L2 - 0.15, fx + 0.22); b.append((x0, y0, x1, y1, 0, 0.1, SILVER))   # fitting foot
+            x0, x1 = X(L2, L2 + 0.05); b.append((x0, y0, x1, y1, 0, H - 0.1, SILVER))     # plate on side wall
+    return b
+remodel('BtB_2x12_P0.35mm_measured', btb_2x12(), mirror=True)
+# J3 and J2 are the same part (J2 rotated 90 degrees): housing 2.55 x 3.95 mm
+remodel('BtB_2x3_P0.4mm_B_measured', btb_2x3(1.27, 1.98, (0.37, 0.75), 1.04, (0.82, 1.37), 1.45, 0.40, (1.17, 1.18), 0.7), mirror=True)
+remodel('BtB_2x3_P0.4mm_A_measured', rot90(btb_2x3(1.30, 2.0, (0.35, 0.75), 1.04, (0.82, 1.37), 1.50, 0.40, (1.39, 1.10), 0.7)), mirror=True)
 remodel('FPC_1x06_P0.5mm_measured', [(-2.5, -1.7, 2.5, 1.7, 0, 0.9, BLACK)])
 remodel('FPC_1x04_P0.5mm_measured', [(-2.0, -1.6, 2.0, 1.6, 0, 0.9, BLACK)])
 
@@ -204,7 +277,8 @@ custom('DFN-3_0.83x1.17mm', '3-pad leadless package 0.83x1.17 mm (two small pads
 custom('BtB_2x3_P0.35mm_C_measured', 'Board-to-board 2x3, ~0.36 mm pitch, pad columns 1.63 mm apart, measured from photo and X-ray',
        [(i + 1, -0.815, (i - 1) * 0.365, 0.8, 0.2, 'round') for i in range(3)] + [(i + 4, 0.815, (i - 1) * 0.365, 0.8, 0.2, 'round') for i in range(3)] +
        [('MP', sx * 0.95, sy * 1.15, 0.5, 0.6, 'rect') for sx in (-1, 1) for sy in (-1, 1)],
-       (2.4, 2.95), 0.6, DGREY, mirror=True)
+       (2.5, 2.95), 0.6, HOUS, boxes=btb_2x3(1.25, 1.47, (0.49, 0.64), 1.0, (0.75, 1.3), 1.22, 0.365, (0.95, 1.15), 0.6, frame=False),
+       mirror=True)
 custom('Pads_2x2_0.65x0.45mm_Unpopulated', 'Four exposed gold pads (unpopulated footprint), measured',
        [(n, x, y, 0.65, 0.45, 'rect') for n, (x, y) in enumerate(((-0.575, -0.6), (0.575, -0.6), (0.575, 0.6), (-0.575, 0.6)), 1)],
        (1.8, 1.65), 0, BLACK, boxes=[], mirror=True)
